@@ -2,31 +2,10 @@
 
 namespace App\Rules;
 
-use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Rule;
 
-class Lowercase implements ValidationRule
+class Lowercase implements Rule
 {
-    /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
-    {
-        //
-    }
-
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -36,7 +15,8 @@ class Lowercase implements ValidationRule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/[a-z]/', $value);
+        // Verificar si al menos hay una letra minúscula en la cadena
+        return preg_match('/[a-z]/', $value) > 0;
     }
 
     /**
@@ -46,6 +26,6 @@ class Lowercase implements ValidationRule
      */
     public function message()
     {
-        return 'La contraseña debe contener al menos una minúscula.';
+        return "La :attribute debe contener al menos una letra minúscula.";
     }
 }

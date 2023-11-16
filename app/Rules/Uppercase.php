@@ -2,31 +2,10 @@
 
 namespace App\Rules;
 
-use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Rule;
 
-class Uppercase implements ValidationRule
+class Uppercase implements Rule
 {
-    /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
-    {
-        //
-    }
-
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -36,7 +15,8 @@ class Uppercase implements ValidationRule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/[A-Z]/', $value);
+        // Verificar si al menos hay una letra mayúscula en la cadena
+        return preg_match('/[A-Z]/', $value) > 0;
     }
 
     /**
@@ -46,6 +26,6 @@ class Uppercase implements ValidationRule
      */
     public function message()
     {
-        return 'La contraseña debe contener al menos una mayúscula.';
+        return "La :attribute debe contener al menos una letra mayúscula.";
     }
 }

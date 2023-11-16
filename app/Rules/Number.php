@@ -2,31 +2,10 @@
 
 namespace App\Rules;
 
-use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Rule;
 
-class Number implements ValidationRule
+class Number implements Rule
 {
-    /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     */
-    public function validate(string $attribute, mixed $value, Closure $fail): void
-    {
-        //
-    }
-
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -36,7 +15,8 @@ class Number implements ValidationRule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/[0-9]/', $value);
+        // Verificar si al menos hay un número en la cadena
+        return preg_match('/[0-9]/', $value) > 0;
     }
 
     /**
@@ -46,6 +26,6 @@ class Number implements ValidationRule
      */
     public function message()
     {
-        return 'La contraseña debe contener al menos un número.';
+        return "La :attribute debe contener al menos un número.";
     }
 }
