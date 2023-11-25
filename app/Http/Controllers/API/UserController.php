@@ -167,7 +167,7 @@ class UserController extends Controller
             // Find user
             $data = User::findOrFail($id);
             $data->nickname = $request->nickname;
-           /*  $data->description = $request->description; */
+            $data->description = $request->description; 
             $data->name = $request->name;
             $data->last_name = $request->last_name;
             $data->address = $request->address;
